@@ -204,3 +204,94 @@ input:checked + label {
 .continente input:checked + label[for="asia"]      { color: #3dd6a0; }
 .continente input:checked + label[for="america"]   { color: #aaaaaa; }
 .continente input:checked + label[for="antartida"] { color: #b57cf0; }
+
+/* ---------- Next button ---------- */
+button {
+    min-width: 12rem;
+    padding: 0.9rem 3rem 0.7rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--coral);
+    color: #ffffff;
+    font-family: var(--font);
+    font-size: 2.2rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(245, 120, 120, 0.35);
+}
+
+button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+button:focus-visible {
+    outline: 4px solid rgba(0, 0, 0, 0.35);
+    outline-offset: 4px;
+}
+
+/* ---------- Result screen ---------- */
+#nombreBebe {
+    margin: 0;
+    font-size: clamp(3.5rem, 14vw, 10rem);
+    line-height: 1;
+    text-align: center;
+    color: var(--coral);
+    overflow-wrap: anywhere;
+}
+
+/* ---------- Footer ---------- */
+footer {
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    font-size: 1.1rem;
+    color: #c4c4c4;
+}
+
+footer p {
+    margin: 0;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 800px) {
+    .continente {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem;
+    }
+
+    .genero,
+    .compuesto {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        gap: 1.8rem;
+    }
+
+    .continente {
+        grid-template-columns: 1fr;
+    }
+
+    label {
+        min-height: 3.8rem;
+    }
+
+    .genero label,
+    .compuesto label {
+        flex-basis: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+    }
+}
