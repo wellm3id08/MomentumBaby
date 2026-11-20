@@ -54,3 +54,153 @@ header p {
     line-height: 1.5;
     color: #9a9a9a;
 }
+
+/* ---------- Main ---------- */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 2rem 1.5rem;
+}
+
+main > h1,
+section h1 {
+    margin: 0;
+    font-weight: 400;
+    text-align: center;
+    font-size: clamp(2.5rem, 8vw, 6.5rem);
+    line-height: 0.95;
+    color: var(--blue);
+    text-wrap: balance;
+}
+
+section {
+    width: 100%;
+    max-width: 62rem;
+}
+
+/* Hide native inputs; the labels act as the buttons */
+input[type="radio"],
+input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+}
+
+label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 4.5rem;
+    padding: 0.4rem 2rem;
+    border-radius: 2.2rem 2.2rem 2.2rem 2.2rem / 2rem 2rem 2rem 2rem;
+    font-size: clamp(1.8rem, 4vw, 3.2rem);
+    line-height: 1;
+    color: var(--text-light);
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+label:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.04);
+}
+
+input:focus-visible + label {
+    outline: 4px solid rgba(0, 0, 0, 0.35);
+    outline-offset: 4px;
+}
+
+/* Selected state */
+input:checked + label {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 5px #ffffff, 0 0 0 9px currentColor;
+    filter: saturate(1.25) brightness(0.97);
+}
+
+/* ---------- Screen 1 & 3: two options ---------- */
+.genero,
+.compuesto {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2.5rem 4rem;
+}
+
+.genero h1,
+.compuesto h1 {
+    flex: 0 0 100%;
+    margin-bottom: 0.5rem;
+}
+
+.genero label,
+.compuesto label {
+    flex: 0 1 20rem;
+    min-width: 12rem;
+}
+
+.genero label[for="female"] {
+    background: var(--purple);
+    color: #ffffff;
+}
+
+.genero label[for="male"] {
+    background: var(--blue);
+}
+
+.genero input:checked + label[for="female"] { color: #b88bec; }
+.genero input:checked + label[for="male"]   { color: #5e9cf5; }
+.genero input:checked + label { background-clip: padding-box; }
+
+/* Compound name (yes / no) */
+.compuesto h1 {
+    color: var(--coral);
+}
+
+.compuesto label[for="yes"] {
+    background: #96ffd2;
+    color: #ffffff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
+}
+
+.compuesto label[for="no"] {
+    background: #ff9999;
+}
+
+.compuesto input:checked + label[for="yes"] { color: #3dd6a0; }
+.compuesto input:checked + label[for="no"]  { color: #f06060; }
+
+/* ---------- Screen 2: continents grid ---------- */
+.continente {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2rem 2.5rem;
+}
+
+.continente h1 {
+    grid-column: 1 / -1;
+    color: var(--coral);
+    margin-bottom: 1rem;
+}
+
+.continente label {
+    min-height: 5.5rem;
+}
+
+.continente label[for="europa"]    { background: #ffb6ec; }
+.continente label[for="africa"]    { background: #ff9999; }
+.continente label[for="asia"]      { background: #96ffd2; color: #ffffff; }
+.continente label[for="america"]   { background: #dddddd; }
+.continente label[for="antartida"] { background: #d9b3ff; }
+
+.continente input:checked + label[for="europa"]    { color: #f27fd2; }
+.continente input:checked + label[for="africa"]    { color: #f06060; }
+.continente input:checked + label[for="asia"]      { color: #3dd6a0; }
+.continente input:checked + label[for="america"]   { color: #aaaaaa; }
+.continente input:checked + label[for="antartida"] { color: #b57cf0; }
