@@ -1,11 +1,58 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
+/* MomentumBaby - hoja de estilos común a las 4 páginas */
+/* Concepto: bloques de juguete. Las opciones se "hunden" al elegirlas y el nombre final es una pegatina grande. */
+
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;600;700&display=swap");
 
 :root {
-    --blue: #9dc4fd;
-    --purple: #e0c6fc;
-    --coral: #f57878;
-    --text-light: #ffffff;
-    --font: "Bebas Neue", "Oswald", Impact, "Arial Narrow Bold", sans-serif;
+    color-scheme: light dark;
+
+    --fondo: #f4f7ff;
+    --superficie: #ffffff;
+    --tinta: #17203d;
+    --tinta-suave: #556080;
+    --borde: #17203d;
+    --linea: #d5dcf2;
+    --foco: #3b5bdb;
+
+    /* Colores de los bloques */
+    --cielo: #8fd3ff;
+    --sol: #ffd23f;
+    --rosa: #ff9ec4;
+    --menta: #8de3b0;
+    --lila: #c3b1ff;
+    --ficha-texto: #17203d;
+
+    /* Formas de fondo */
+    --forma-1: rgba(143, 211, 255, 0.45);
+    --forma-2: rgba(255, 210, 63, 0.4);
+    --radio-forma: clamp(7rem, 22vw, 13rem);
+
+    --boton-fondo: #17203d;
+    --boton-texto: #ffffff;
+
+    --fuente-titulos: "Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+    --fuente-texto: "Figtree", "Segoe UI", system-ui, sans-serif;
+
+    --radio-bloque: 1.25rem;
+    --grosor: 3px;
+    --transicion: 0.15s ease;
+    --paso: 0%;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --fondo: #12182f;
+        --superficie: #1e2750;
+        --tinta: #f2f4ff;
+        --tinta-suave: #a9b2d6;
+        --borde: #f2f4ff;
+        --linea: #2f3a69;
+        --foco: #9fb2ff;
+        --forma-1: rgba(143, 211, 255, 0.14);
+        --forma-2: rgba(255, 210, 63, 0.12);
+        --boton-fondo: #ffd23f;
+        --boton-texto: #17203d;
+    }
 }
 
 *,
@@ -14,77 +61,143 @@
     box-sizing: border-box;
 }
 
-html {
-    font-size: 16px;
-}
-
 body {
     margin: 0;
     min-height: 100vh;
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    background: #ffffff;
-    font-family: var(--font);
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-    color: var(--blue);
+    align-items: center;
+    padding: 0 1.25rem;
+    background:
+        radial-gradient(circle at 100% 0%, var(--forma-1) 0 var(--radio-forma), transparent calc(var(--radio-forma) + 0.5px)),
+        radial-gradient(circle at 0% 100%, var(--forma-2) 0 var(--radio-forma), transparent calc(var(--radio-forma) + 0.5px)),
+        var(--fondo);
+    background-attachment: fixed;
+    color: var(--tinta);
+    font-family: var(--fuente-texto);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
 }
 
-/* ---------- Header ---------- */
+/* Progreso: pista + relleno. Cada página se reconoce por su sección. */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 8px;
+}
+
+body::before {
+    right: 0;
+    background: var(--linea);
+}
+
+body::after {
+    width: var(--paso);
+    background: var(--sol);
+    border-radius: 0 999px 999px 0;
+    box-shadow: 0 2px 0 var(--borde);
+}
+
+body:has(.genero) {
+    --paso: 25%;
+}
+
+body:has(.continente) {
+    --paso: 50%;
+}
+
+body:has(.compuesto) {
+    --paso: 75%;
+}
+
+body:has(#nombreBebe) {
+    --paso: 100%;
+}
+
+/* Cabecera (solo en la primera página) */
+
 header {
+    width: 100%;
+    max-width: 40rem;
+    padding: 4.5rem 0 1rem;
     text-align: center;
-    padding: 2.5rem 1.5rem 0;
 }
 
 header h1 {
-    margin: 0;
-    font-weight: 400;
-    font-size: clamp(2.5rem, 7vw, 5rem);
-    color: var(--coral);
-    line-height: 1;
+    margin: 0 0 1.25rem;
+    font-family: var(--fuente-titulos);
+    font-size: clamp(3rem, 11vw, 5rem);
+    font-weight: 800;
+    line-height: 0.98;
+    letter-spacing: -0.04em;
 }
 
 header p {
-    max-width: 42rem;
-    margin: 1rem auto 0;
-    font-family: system-ui, sans-serif;
-    text-transform: none;
-    letter-spacing: 0;
-    font-size: 0.95rem;
-    line-height: 1.5;
-    color: #9a9a9a;
+    margin: 0 auto;
+    max-width: 32rem;
+    color: var(--tinta-suave);
 }
 
-/* ---------- Main ---------- */
+/* Contenido principal */
+
 main {
     flex: 1;
+    width: 100%;
+    max-width: 40rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 2.5rem;
-    padding: 2rem 1.5rem;
+    padding: 2.5rem 0;
+    text-align: center;
 }
 
-main > h1,
-section h1 {
+main h1 {
     margin: 0;
-    font-weight: 400;
-    text-align: center;
-    font-size: clamp(2.5rem, 8vw, 6.5rem);
-    line-height: 0.95;
-    color: var(--blue);
+    font-family: var(--fuente-titulos);
+    font-size: clamp(1.75rem, 5.5vw, 2.5rem);
+    font-weight: 700;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
     text-wrap: balance;
 }
 
-section {
-    width: 100%;
-    max-width: 62rem;
+/* En la página del resultado el título queda discreto para que mande el nombre */
+
+main > h1:has(+ #nombreBebe) {
+    color: var(--tinta-suave);
+    font-family: var(--fuente-texto);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: 0;
 }
 
-/* Hide native inputs; the labels act as the buttons */
-input[type="radio"],
-input[type="checkbox"] {
+/* Preguntas: cada opción es un bloque de juguete */
+
+section {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+section h1 {
+    width: 100%;
+    margin-bottom: 0.75rem;
+}
+
+/* El input real se oculta visualmente pero sigue accesible con teclado y lectores de pantalla */
+
+section input {
     position: absolute;
     opacity: 0;
     width: 1px;
@@ -92,206 +205,197 @@ input[type="checkbox"] {
     pointer-events: none;
 }
 
-label {
+section label {
+    --c: var(--cielo);
+
+    flex: 1 1 9.5rem;
+    max-width: 15rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 4.5rem;
-    padding: 0.4rem 2rem;
-    border-radius: 2.2rem 2.2rem 2.2rem 2.2rem / 2rem 2rem 2rem 2rem;
-    font-size: clamp(1.8rem, 4vw, 3.2rem);
-    line-height: 1;
-    color: var(--text-light);
+    gap: 0.875rem;
+    padding: 1.125rem 1.25rem;
+    background: var(--superficie);
+    border: var(--grosor) solid var(--borde);
+    border-radius: var(--radio-bloque);
+    box-shadow: 0 5px 0 var(--borde);
+    font-size: 1.125rem;
+    font-weight: 700;
+    text-align: left;
     cursor: pointer;
-    user-select: none;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    transition: transform var(--transicion), box-shadow var(--transicion),
+        background var(--transicion), color var(--transicion);
 }
 
-label:hover {
-    transform: translateY(-3px);
-    filter: brightness(1.04);
+/* Cada bloque tiene su color; sirve para distinguir los continentes de un vistazo */
+
+section label:nth-of-type(1) {
+    --c: var(--cielo);
 }
 
-input:focus-visible + label {
-    outline: 4px solid rgba(0, 0, 0, 0.35);
+section label:nth-of-type(2) {
+    --c: var(--sol);
+}
+
+section label:nth-of-type(3) {
+    --c: var(--rosa);
+}
+
+section label:nth-of-type(4) {
+    --c: var(--menta);
+}
+
+section label:nth-of-type(5) {
+    --c: var(--lila);
+}
+
+section label:hover {
+    background: color-mix(in srgb, var(--c) 35%, var(--superficie));
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 var(--borde);
+}
+
+/* Indicador: círculo para una opción única, cuadrado redondeado para varias */
+
+section label::before {
+    content: "";
+    flex: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: var(--grosor) solid var(--borde);
+    border-radius: 50%;
+    background-color: var(--superficie);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    transition: background-color var(--transicion);
+}
+
+section input[type="checkbox"] + label::before {
+    border-radius: 0.4rem;
+}
+
+/* Bloque elegido: se colorea y se hunde, como un botón físico pulsado */
+
+section input:checked + label {
+    background: var(--c);
+    color: var(--ficha-texto);
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--borde);
+}
+
+section input:checked + label::before {
+    background-color: #17203d;
+    border-color: #17203d;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+section input:focus-visible + label {
+    outline: 3px solid var(--foco);
     outline-offset: 4px;
 }
 
-/* Selected state */
-input:checked + label {
-    transform: scale(1.05);
-    box-shadow: 0 0 0 5px #ffffff, 0 0 0 9px currentColor;
-    filter: saturate(1.25) brightness(0.97);
-}
+/* Botón principal: mismo lenguaje que los bloques */
 
-/* ---------- Screen 1 & 3: two options ---------- */
-.genero,
-.compuesto {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 2.5rem 4rem;
-}
-
-.genero h1,
-.compuesto h1 {
-    flex: 0 0 100%;
-    margin-bottom: 0.5rem;
-}
-
-.genero label,
-.compuesto label {
-    flex: 0 1 20rem;
-    min-width: 12rem;
-}
-
-.genero label[for="female"] {
-    background: var(--purple);
-    color: #ffffff;
-}
-
-.genero label[for="male"] {
-    background: var(--blue);
-}
-
-.genero input:checked + label[for="female"] { color: #b88bec; }
-.genero input:checked + label[for="male"]   { color: #5e9cf5; }
-.genero input:checked + label { background-clip: padding-box; }
-
-/* Compound name (yes / no) */
-.compuesto h1 {
-    color: var(--coral);
-}
-
-.compuesto label[for="yes"] {
-    background: #96ffd2;
-    color: #ffffff;
-    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.08);
-}
-
-.compuesto label[for="no"] {
-    background: #ff9999;
-}
-
-.compuesto input:checked + label[for="yes"] { color: #3dd6a0; }
-.compuesto input:checked + label[for="no"]  { color: #f06060; }
-
-/* ---------- Screen 2: continents grid ---------- */
-.continente {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2rem 2.5rem;
-}
-
-.continente h1 {
-    grid-column: 1 / -1;
-    color: var(--coral);
-    margin-bottom: 1rem;
-}
-
-.continente label {
-    min-height: 5.5rem;
-}
-
-.continente label[for="europa"]    { background: #ffb6ec; }
-.continente label[for="africa"]    { background: #ff9999; }
-.continente label[for="asia"]      { background: #96ffd2; color: #ffffff; }
-.continente label[for="america"]   { background: #dddddd; }
-.continente label[for="antartida"] { background: #d9b3ff; }
-
-.continente input:checked + label[for="europa"]    { color: #f27fd2; }
-.continente input:checked + label[for="africa"]    { color: #f06060; }
-.continente input:checked + label[for="asia"]      { color: #3dd6a0; }
-.continente input:checked + label[for="america"]   { color: #aaaaaa; }
-.continente input:checked + label[for="antartida"] { color: #b57cf0; }
-
-/* ---------- Next button ---------- */
 button {
-    min-width: 12rem;
-    padding: 0.9rem 3rem 0.7rem;
-    border: 0;
+    padding: 0.95rem 3.25rem;
+    background: var(--boton-fondo);
+    border: var(--grosor) solid var(--borde);
     border-radius: 999px;
-    background: var(--coral);
-    color: #ffffff;
-    font-family: var(--font);
-    font-size: 2.2rem;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
+    box-shadow: 0 5px 0 var(--sol);
+    color: var(--boton-texto);
+    font-family: var(--fuente-texto);
+    font-size: 1.125rem;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    transition: transform var(--transicion), box-shadow var(--transicion);
 }
 
 button:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 18px rgba(245, 120, 120, 0.35);
+    transform: translateY(-2px);
+    box-shadow: 0 7px 0 var(--sol);
 }
 
 button:active {
-    transform: translateY(0);
-    box-shadow: none;
+    transform: translateY(4px);
+    box-shadow: 0 1px 0 var(--sol);
 }
 
 button:focus-visible {
-    outline: 4px solid rgba(0, 0, 0, 0.35);
+    outline: 3px solid var(--foco);
     outline-offset: 4px;
 }
 
-/* ---------- Result screen ---------- */
+/* Resultado: el nombre es una pegatina enorme. Es lo único que se anima solo. */
+
 #nombreBebe {
     margin: 0;
-    font-size: clamp(3.5rem, 14vw, 10rem);
-    line-height: 1;
-    text-align: center;
-    color: var(--coral);
+    padding: 0 0.5rem;
+    color: var(--tinta);
+    font-family: var(--fuente-titulos);
+    font-size: clamp(3.5rem, 16vw, 8rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.04em;
+    text-shadow: 0.05em 0.05em 0 var(--sol);
     overflow-wrap: anywhere;
+    transform: rotate(-2deg);
+    animation: aparecer 0.8s cubic-bezier(0.3, 1.4, 0.5, 1) both;
 }
 
-/* ---------- Footer ---------- */
+#nombreBebe:empty {
+    display: none;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.5) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(-2deg);
+    }
+}
+
+/* Pie de página */
+
 footer {
-    padding: 1.2rem 1.5rem;
+    width: 100%;
+    max-width: 40rem;
+    margin-top: auto;
+    padding: 1.5rem 0 2rem;
+    border-top: 2px solid var(--linea);
+    color: var(--tinta-suave);
+    font-size: 0.875rem;
     text-align: center;
-    font-size: 1.1rem;
-    color: #c4c4c4;
 }
 
 footer p {
     margin: 0;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 800px) {
-    .continente {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1.2rem;
-    }
-
-    .genero,
-    .compuesto {
-        gap: 1.5rem;
-    }
-}
+/* Móvil: bloques y botón a todo el ancho */
 
 @media (max-width: 480px) {
-    main {
-        gap: 1.8rem;
+    header {
+        padding-top: 3.5rem;
     }
 
-    .continente {
-        grid-template-columns: 1fr;
-    }
-
-    label {
-        min-height: 3.8rem;
-    }
-
-    .genero label,
-    .compuesto label {
+    section label {
         flex-basis: 100%;
+        max-width: none;
+    }
+
+    button {
+        width: 100%;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
         transition: none !important;
     }
 }
