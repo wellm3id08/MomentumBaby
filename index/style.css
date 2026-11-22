@@ -1,4 +1,4 @@
-/* MomentumBaby - hoja de estilos común a las 4 páginas */
+/* MomentumBaby - hoja de estilos común a las 5 páginas */
 /* Concepto: bloques de juguete. Las opciones se "hunden" al elegirlas y el nombre final es una pegatina grande. */
 
 @import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Figtree:wght@400;600;700&display=swap");
@@ -105,15 +105,19 @@ body::after {
 }
 
 body:has(.genero) {
-    --paso: 25%;
+    --paso: 20%;
 }
 
 body:has(.continente) {
-    --paso: 50%;
+    --paso: 40%;
 }
 
 body:has(.compuesto) {
-    --paso: 75%;
+    --paso: 60%;
+}
+
+body:has(.largo) {
+    --paso: 80%;
 }
 
 body:has(#nombreBebe) {
