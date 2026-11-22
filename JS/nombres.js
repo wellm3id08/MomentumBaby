@@ -136,9 +136,9 @@ const nameOceaniaWomen = [
 ];
 
 const nameAntarcticaMen = [
-    "Aquaman"
+    "Aquaman", "Pingu", "Skipper", "Mumble", "Kowalski"
 ];
 
 const nameAntarcticaWomen = [
-    "Atlantia"
+    "Atlantia", "Gloria", "Marina", "Pinguina", "Nieves"
 ];
