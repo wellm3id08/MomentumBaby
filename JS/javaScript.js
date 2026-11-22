@@ -32,20 +32,24 @@ function filtrarLargo(lista, largo) {
     return filtrada.length > 0 ? filtrada : lista;
 }
 
-// Solo se usa en la última página
-function mostrarNombre() {
-    const parrafo = document.getElementById("nombreBebe");
+// ---------- Solo se usa en la última página ----------
 
+let listaNombres = [];
+let esCompuesto = false;
+
+function leerOpciones() {
     const genero = JSON.parse(sessionStorage.getItem("genero"));
     const continentes = JSON.parse(sessionStorage.getItem("continente"));
     const compuesto = JSON.parse(sessionStorage.getItem("compuesto"));
     const largo = JSON.parse(sessionStorage.getItem("largo"));
 
     if (!genero || !continentes || !compuesto || !largo) {
-        parrafo.textContent = "Faltan opciones, vuelve a empezar";
-        return;
+        return null;
     }
+    return { genero: genero[0], continentes: continentes, compuesto: compuesto[0], largo: largo[0] };
+}
 
+function construirLista(opciones) {
     const listas = {
         europa: { male: nameEuropeMen, female: nameEuropeWomen },
         america: { male: nameAmericaMen, female: nameAmericaWomen },
@@ -55,24 +59,44 @@ function mostrarNombre() {
         antartida: { male: nameAntarcticaMen, female: nameAntarcticaWomen }
     };
 
+    // "any" (sorpréndeme) mezcla nombres de niño y de niña
+    const generos = opciones.genero === "any" ? ["male", "female"] : [opciones.genero];
+
     let lista = [];
-    continentes.forEach(function (continente) {
-        lista = lista.concat(listas[continente][genero[0]]);
+    opciones.continentes.forEach(function (continente) {
+        generos.forEach(function (genero) {
+            lista = lista.concat(listas[continente][genero]);
+        });
     });
 
-    lista = filtrarLargo(lista, largo[0]);
+    return filtrarLargo(lista, opciones.largo);
+}
 
-    let nombre = elegirAleatorio(lista);
+function generarNombre() {
+    let nombre = elegirAleatorio(listaNombres);
 
-    if (compuesto[0] === "yes") {
-        let segundo = elegirAleatorio(lista);
-        while (segundo === nombre && lista.length > 1) {
-            segundo = elegirAleatorio(lista);
+    if (esCompuesto) {
+        let segundo = elegirAleatorio(listaNombres);
+        while (segundo === nombre && listaNombres.length > 1) {
+            segundo = elegirAleatorio(listaNombres);
         }
         nombre = nombre + " " + segundo;
     }
+    return nombre;
+}
 
-    parrafo.textContent = nombre;
+function mostrarNombre() {
+    const parrafo = document.getElementById("nombreBebe");
+    const opciones = leerOpciones();
+
+    if (!opciones) {
+        parrafo.textContent = "Faltan opciones, vuelve a empezar";
+        return;
+    }
+
+    listaNombres = construirLista(opciones);
+    esCompuesto = opciones.compuesto === "yes";
+    parrafo.textContent = generarNombre();
 }
 
 if (document.getElementById("nombreBebe")) {
