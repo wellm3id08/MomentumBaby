@@ -20,6 +20,18 @@ function elegirAleatorio(lista) {
     return lista[Math.floor(Math.random() * lista.length)];
 }
 
+// Filtra por largo. Si no queda ningún nombre, se usa la lista entera.
+function filtrarLargo(lista, largo) {
+    const filtros = {
+        short: function (n) { return n.length <= 5; },
+        medium: function (n) { return n.length >= 6 && n.length <= 7; },
+        long: function (n) { return n.length >= 8; },
+        anylen: function () { return true; }
+    };
+    const filtrada = lista.filter(filtros[largo] || filtros.anylen);
+    return filtrada.length > 0 ? filtrada : lista;
+}
+
 // Solo se usa en la última página
 function mostrarNombre() {
     const parrafo = document.getElementById("nombreBebe");
@@ -27,8 +39,9 @@ function mostrarNombre() {
     const genero = JSON.parse(sessionStorage.getItem("genero"));
     const continentes = JSON.parse(sessionStorage.getItem("continente"));
     const compuesto = JSON.parse(sessionStorage.getItem("compuesto"));
+    const largo = JSON.parse(sessionStorage.getItem("largo"));
 
-    if (!genero || !continentes || !compuesto) {
+    if (!genero || !continentes || !compuesto || !largo) {
         parrafo.textContent = "Faltan opciones, vuelve a empezar";
         return;
     }
@@ -38,6 +51,7 @@ function mostrarNombre() {
         america: { male: nameAmericaMen, female: nameAmericaWomen },
         asia: { male: nameAsiaMen, female: nameAsiaWomen },
         africa: { male: nameAfricaMen, female: nameAfricaWomen },
+        oceania: { male: nameOceaniaMen, female: nameOceaniaWomen },
         antartida: { male: nameAntarcticaMen, female: nameAntarcticaWomen }
     };
 
@@ -45,6 +59,8 @@ function mostrarNombre() {
     continentes.forEach(function (continente) {
         lista = lista.concat(listas[continente][genero[0]]);
     });
+
+    lista = filtrarLargo(lista, largo[0]);
 
     let nombre = elegirAleatorio(lista);
 
