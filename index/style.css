@@ -447,3 +447,61 @@ button.secundario:active {
     color: var(--tinta-suave);
     font-weight: 600;
 }
+
+/* Favoritos guardados en el navegador */
+
+.favoritos {
+    width: 100%;
+    padding: 1.25rem;
+    background: var(--superficie);
+    border: var(--grosor) solid var(--borde);
+    border-radius: var(--radio-bloque);
+    box-shadow: 0 5px 0 var(--borde);
+}
+
+.favoritos h2 {
+    margin: 0 0 0.75rem;
+    font-family: var(--fuente-titulos);
+    font-size: 1.25rem;
+}
+
+.favoritos ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.favoritos li {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.25rem 0.4rem 0.25rem 0.9rem;
+    background: color-mix(in srgb, var(--rosa) 45%, var(--superficie));
+    border: 2px solid var(--borde);
+    border-radius: 999px;
+    font-weight: 700;
+}
+
+.favoritos li button {
+    width: 1.6rem;
+    height: 1.6rem;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: none;
+    color: var(--tinta);
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.favoritos li button:hover,
+.favoritos li button:active {
+    background: color-mix(in srgb, var(--borde) 15%, transparent);
+    box-shadow: none;
+    transform: none;
+}
