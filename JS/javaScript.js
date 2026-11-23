@@ -113,10 +113,84 @@ function nuevoNombre() {
 
     nombreActual = nombre;
     document.getElementById("nombreBebe").textContent = nombre;
+    actualizarBotonGuardar();
+}
+
+// ---------- Favoritos (se guardan en este navegador) ----------
+
+function leerFavoritos() {
+    try {
+        return JSON.parse(localStorage.getItem("favoritos")) || [];
+    } catch (e) {
+        return [];
+    }
+}
+
+function guardarFavoritos(lista) {
+    try {
+        localStorage.setItem("favoritos", JSON.stringify(lista));
+    } catch (e) {
+        // si el navegador no deja guardar, los favoritos duran lo que dure la página
+    }
+}
+
+function alternarFavorito() {
+    let favoritos = leerFavoritos();
+
+    if (favoritos.includes(nombreActual)) {
+        favoritos = favoritos.filter(function (n) { return n !== nombreActual; });
+    } else {
+        favoritos.push(nombreActual);
+    }
+
+    guardarFavoritos(favoritos);
+    actualizarBotonGuardar();
+    pintarFavoritos();
+}
+
+function actualizarBotonGuardar() {
+    const boton = document.getElementById("guardar");
+    const guardado = leerFavoritos().includes(nombreActual);
+    boton.textContent = "♥ " + (guardado ? "Saved" : "Save");
+    boton.setAttribute("aria-pressed", guardado ? "true" : "false");
+}
+
+function quitarFavorito(nombre) {
+    guardarFavoritos(leerFavoritos().filter(function (n) { return n !== nombre; }));
+    actualizarBotonGuardar();
+    pintarFavoritos();
+}
+
+function pintarFavoritos() {
+    const caja = document.getElementById("favoritos");
+    const lista = document.getElementById("listaFavoritos");
+    const favoritos = leerFavoritos();
+
+    lista.textContent = "";
+    caja.hidden = favoritos.length === 0;
+
+    favoritos.forEach(function (nombre) {
+        const item = document.createElement("li");
+        const texto = document.createElement("span");
+        const quitar = document.createElement("button");
+
+        texto.textContent = nombre;
+        quitar.type = "button";
+        quitar.textContent = "×";
+        quitar.setAttribute("aria-label", "Remove" + " " + nombre);
+        quitar.addEventListener("click", function () {
+            quitarFavorito(nombre);
+        });
+
+        item.append(texto, quitar);
+        lista.appendChild(item);
+    });
 }
 
 if (document.getElementById("nombreBebe")) {
     mostrarNombre();
+    pintarFavoritos();
 
     document.getElementById("otro").addEventListener("click", nuevoNombre);
+    document.getElementById("guardar").addEventListener("click", alternarFavorito);
 }
