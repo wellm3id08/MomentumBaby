@@ -34,6 +34,7 @@ function filtrarLargo(lista, largo) {
 
 // ---------- Solo se usa en la última página ----------
 
+let nombreActual = "";
 let listaNombres = [];
 let esCompuesto = false;
 
@@ -91,14 +92,31 @@ function mostrarNombre() {
 
     if (!opciones) {
         parrafo.textContent = "Faltan opciones, vuelve a empezar";
+        document.querySelector(".acciones").hidden = true;
         return;
     }
 
     listaNombres = construirLista(opciones);
     esCompuesto = opciones.compuesto === "yes";
-    parrafo.textContent = generarNombre();
+    nuevoNombre();
+}
+
+function nuevoNombre() {
+    let nombre = generarNombre();
+
+    // Que "Otro nombre" no repita el que ya está en pantalla
+    let intentos = 0;
+    while (nombre === nombreActual && intentos < 10) {
+        nombre = generarNombre();
+        intentos++;
+    }
+
+    nombreActual = nombre;
+    document.getElementById("nombreBebe").textContent = nombre;
 }
 
 if (document.getElementById("nombreBebe")) {
     mostrarNombre();
+
+    document.getElementById("otro").addEventListener("click", nuevoNombre);
 }
