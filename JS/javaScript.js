@@ -3,7 +3,7 @@ function siguiente(pagina) {
     const marcados = document.querySelectorAll("input:checked");
 
     if (marcados.length === 0) {
-        alert("Elige una opción");
+        mostrarAviso(t("elige"));
         return;
     }
 
@@ -14,6 +14,19 @@ function siguiente(pagina) {
 
     sessionStorage.setItem(marcados[0].name, JSON.stringify(ids));
     location.href = pagina;
+}
+
+// Mensaje de error debajo del botón, en vez de un alert
+function mostrarAviso(texto) {
+    let aviso = document.getElementById("aviso");
+    if (!aviso) {
+        aviso = document.createElement("p");
+        aviso.id = "aviso";
+        aviso.className = "aviso";
+        aviso.setAttribute("role", "alert");
+        document.querySelector("main button").after(aviso);
+    }
+    aviso.textContent = texto;
 }
 
 function elegirAleatorio(lista) {
@@ -91,7 +104,7 @@ function mostrarNombre() {
     const opciones = leerOpciones();
 
     if (!opciones) {
-        parrafo.textContent = "Faltan opciones, vuelve a empezar";
+        parrafo.textContent = t("faltan");
         document.querySelector(".acciones").hidden = true;
         return;
     }
@@ -113,6 +126,7 @@ function nuevoNombre() {
 
     nombreActual = nombre;
     document.getElementById("nombreBebe").textContent = nombre;
+    document.getElementById("ocurrencia").textContent = elegirAleatorio(t("ocurrencias"));
     actualizarBotonGuardar();
 }
 
@@ -151,7 +165,7 @@ function alternarFavorito() {
 function actualizarBotonGuardar() {
     const boton = document.getElementById("guardar");
     const guardado = leerFavoritos().includes(nombreActual);
-    boton.textContent = "♥ " + (guardado ? "Saved" : "Save");
+    boton.textContent = "♥ " + (guardado ? t("guardado") : t("guardar"));
     boton.setAttribute("aria-pressed", guardado ? "true" : "false");
 }
 
@@ -177,7 +191,7 @@ function pintarFavoritos() {
         texto.textContent = nombre;
         quitar.type = "button";
         quitar.textContent = "×";
-        quitar.setAttribute("aria-label", "Remove" + " " + nombre);
+        quitar.setAttribute("aria-label", t("quitar") + " " + nombre);
         quitar.addEventListener("click", function () {
             quitarFavorito(nombre);
         });
@@ -190,8 +204,8 @@ function pintarFavoritos() {
 function copiarNombre() {
     const boton = document.getElementById("copiar");
     const aviso = function () {
-        boton.textContent = "Copied";
-        setTimeout(function () { boton.textContent = "Copy"; }, 1500);
+        boton.textContent = t("copiado");
+        setTimeout(function () { boton.textContent = t("copiar"); }, 1500);
     };
 
     if (navigator.clipboard) {
@@ -206,4 +220,15 @@ if (document.getElementById("nombreBebe")) {
     document.getElementById("otro").addEventListener("click", nuevoNombre);
     document.getElementById("guardar").addEventListener("click", alternarFavorito);
     document.getElementById("copiar").addEventListener("click", copiarNombre);
+
+    // Al cambiar de idioma se traducen los textos que pone el script
+    document.addEventListener("idioma-cambiado", function () {
+        document.getElementById("copiar").textContent = t("copiar");
+        document.getElementById("ocurrencia").textContent = elegirAleatorio(t("ocurrencias"));
+        actualizarBotonGuardar();
+        pintarFavoritos();
+        if (!leerOpciones()) {
+            document.getElementById("nombreBebe").textContent = t("faltan");
+        }
+    });
 }
