@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MomentumBaby: generador de nombres para bebés / baby name generator / gerador de nomes para bebés">
     <link rel="stylesheet" href="style.css">
     <title>MomentumBaby</title>
 </head>
 <body>
     <main>
         <section class="largo">
-            <h1>How long should it be?</h1>
+            <h1 data-i18n="q_largo"></h1>
             <input type="radio" name="largo" id="short">
-            <label for="short">Short (up to 5 letters)</label>
+            <label for="short" data-i18n="short"></label>
             <input type="radio" name="largo" id="medium">
-            <label for="medium">Medium (6 or 7 letters)</label>
+            <label for="medium" data-i18n="medium"></label>
             <input type="radio" name="largo" id="long">
-            <label for="long">Long (8 or more)</label>
+            <label for="long" data-i18n="long"></label>
             <input type="radio" name="largo" id="anylen">
-            <label for="anylen">Don't care</label>
+            <label for="anylen" data-i18n="anylen"></label>
         </section>
-        <button type="button" onclick="siguiente('index5.html')">Next</button>
+        <button type="button" onclick="siguiente('index5.html')" data-i18n="siguiente"></button>
     </main>
     <footer>
-        <p>&copy; Copy Right 2026-2026 | MomentumBaby team</p>
+        <p data-i18n="pie">© 2026 | Equipo MomentumBaby</p>
     </footer>
+    <script src="../JS/idiomas.js"></script>
     <script src="../JS/javaScript.js"></script>
 </body>
 </html>

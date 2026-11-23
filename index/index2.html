@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MomentumBaby: generador de nombres para bebés / baby name generator / gerador de nomes para bebés">
     <link rel="stylesheet" href="style.css">
     <title>MomentumBaby</title>
 </head>
 <body>
     <main>
         <section class="continente">
-            <h1>Which continent is the baby born in?</h1>
+            <h1 data-i18n="q_continente"></h1>
             <input type="checkbox" name="continente" id="europa">
-            <label for="europa">Europe</label>
+            <label for="europa" data-i18n="europa"></label>
             <input type="checkbox" name="continente" id="africa">
-            <label for="africa">Africa</label>
+            <label for="africa" data-i18n="africa"></label>
             <input type="checkbox" name="continente" id="asia">
-            <label for="asia">Asia</label>
+            <label for="asia" data-i18n="asia"></label>
             <input type="checkbox" name="continente" id="america">
-            <label for="america">America</label>
+            <label for="america" data-i18n="america"></label>
             <input type="checkbox" name="continente" id="oceania">
-            <label for="oceania">Oceania</label>
+            <label for="oceania" data-i18n="oceania"></label>
             <input type="checkbox" name="continente" id="antartida">
-            <label for="antartida">Antarctica</label>
+            <label for="antartida" data-i18n="antartida"></label>
         </section>
-        <button type="button" onclick="siguiente('index3.html')">Next</button>
+        <button type="button" onclick="siguiente('index3.html')" data-i18n="siguiente"></button>
     </main>
     <footer>
-        <p>&copy; Copy Right 2026-2026 | MomentumBaby team</p>
+        <p data-i18n="pie">© 2026 | Equipo MomentumBaby</p>
     </footer>
+    <script src="../JS/idiomas.js"></script>
     <script src="../JS/javaScript.js"></script>
 </body>
 </html>

@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MomentumBaby: generador de nombres para bebés / baby name generator / gerador de nomes para bebés">
     <link rel="stylesheet" href="style.css">
     <title>MomentumBaby</title>
 </head>
 <body>
     <header>
         <h1>MomentumBaby</h1>
-        <p>A web app for parents who just had a baby and suddenly realized they still haven't agreed on a name. Don't panic, we've got you covered.</p>
+        <p data-i18n="intro">Una web para padres que acaban de tener un bebé y se han dado cuenta de que todavía no se ponen de acuerdo con el nombre. Tranquilos, os echamos una mano.</p>
     </header>
     <main>
         <section class="genero">
-            <h1>What is the gender of the baby?</h1>
+            <h1 data-i18n="q_genero"></h1>
             <input type="radio" name="genero" id="male">
-            <label for="male">Boy</label>
+            <label for="male" data-i18n="male"></label>
             <input type="radio" name="genero" id="female">
-            <label for="female">Girl</label>
+            <label for="female" data-i18n="female"></label>
             <input type="radio" name="genero" id="any">
-            <label for="any">Surprise me</label>
+            <label for="any" data-i18n="any"></label>
         </section>
-        <button type="button" onclick="siguiente('index2.html')">Next</button>
+        <button type="button" onclick="siguiente('index2.html')" data-i18n="siguiente"></button>
     </main>
     <footer>
-        <p>&copy; Copy Right 2026-2026 | MomentumBaby team</p>
+        <p data-i18n="pie">© 2026 | Equipo MomentumBaby</p>
     </footer>
+    <script src="../JS/idiomas.js"></script>
     <script src="../JS/javaScript.js"></script>
 </body>
 </html>

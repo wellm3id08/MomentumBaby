@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MomentumBaby: generador de nombres para bebés / baby name generator / gerador de nomes para bebés">
     <link rel="stylesheet" href="style.css">
     <title>MomentumBaby</title>
 </head>
 <body>
     <main>
         <section class="compuesto">
-            <h1>Do you want it to have a compound name?</h1>
+            <h1 data-i18n="q_compuesto"></h1>
             <input type="radio" name="compuesto" id="yes">
-            <label for="yes">Yes</label>
+            <label for="yes" data-i18n="yes"></label>
             <input type="radio" name="compuesto" id="no">
-            <label for="no">No</label>
+            <label for="no" data-i18n="no"></label>
         </section>
-        <button onclick="siguiente('index4.html')">Next</button>
+        <button type="button" onclick="siguiente('index4.html')" data-i18n="siguiente"></button>
     </main>
     <footer>
-        <p>&copy; Copy Right 2026-2026 | MomentumBaby team</p>
+        <p data-i18n="pie">© 2026 | Equipo MomentumBaby</p>
     </footer>
+    <script src="../JS/idiomas.js"></script>
     <script src="../JS/javaScript.js"></script>
 </body>
 </html>
