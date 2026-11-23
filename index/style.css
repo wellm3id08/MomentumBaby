@@ -404,6 +404,65 @@ footer p {
     }
 }
 
+/* ---------- Añadidos: idiomas, resultado con acciones y favoritos ---------- */
+
+:root {
+    --error: #b42318;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --error: #ff8a8a;
+    }
+}
+
+/* Selector de idioma ES / EN / PT, arriba a la derecha */
+
+.idiomas {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 5;
+    display: flex;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: var(--superficie);
+    border: 2px solid var(--borde);
+    border-radius: 999px;
+    box-shadow: 0 3px 0 var(--borde);
+}
+
+.idiomas button,
+.idiomas button:hover,
+.idiomas button:active {
+    width: auto;
+    padding: 0.2rem 0.7rem;
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+    box-shadow: none;
+    color: var(--tinta);
+    font-size: 0.85rem;
+    transform: none;
+}
+
+.idiomas button:hover {
+    background: color-mix(in srgb, var(--sol) 40%, transparent);
+}
+
+.idiomas button[aria-pressed="true"] {
+    background: var(--sol);
+    color: #17203d;
+}
+
+/* Mensaje cuando se pulsa Siguiente sin elegir nada */
+
+.aviso {
+    margin: -1rem 0 0;
+    color: var(--error);
+    font-weight: 700;
+}
+
 /* Resultado */
 
 .ocurrencia {
@@ -504,4 +563,18 @@ button.secundario:active {
     background: color-mix(in srgb, var(--borde) 15%, transparent);
     box-shadow: none;
     transform: none;
+}
+
+@media (max-width: 480px) {
+    .acciones {
+        width: 100%;
+    }
+
+    .idiomas button {
+        width: auto;
+    }
+
+    .favoritos li button {
+        width: 1.6rem;
+    }
 }
