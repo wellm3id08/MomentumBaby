@@ -187,10 +187,23 @@ function pintarFavoritos() {
     });
 }
 
+function copiarNombre() {
+    const boton = document.getElementById("copiar");
+    const aviso = function () {
+        boton.textContent = "Copied";
+        setTimeout(function () { boton.textContent = "Copy"; }, 1500);
+    };
+
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(nombreActual).then(aviso);
+    }
+}
+
 if (document.getElementById("nombreBebe")) {
     mostrarNombre();
     pintarFavoritos();
 
     document.getElementById("otro").addEventListener("click", nuevoNombre);
     document.getElementById("guardar").addEventListener("click", alternarFavorito);
+    document.getElementById("copiar").addEventListener("click", copiarNombre);
 }
